@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Movie Ratings</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      .movie {
+        margin-bottom: 10px;
+      }
+      .remove-btn {
+        margin-left: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Movie Ratings</h1>
+
+    <form id="movieForm">
+      <label for="titleInput">Title:</label>
+      <input type="text" id="titleInput" required />
+
+      <label for="ratingInput">Rating:</label>
+      <input type="number" id="ratingInput" required min="1" max="10" />
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="movieList"></div>
+
+    <script>
+      $(document).ready(function () {
+        $("#movieForm").submit(function (event) {
+          event.preventDefault(); // Prevent form submission
+
+          var title = $("#titleInput").val();
+          var rating = $("#ratingInput").val();
+
+          // Append movie to the movie list
+          var $movie = $('<div class="movie"></div>');
+          var $title = $("<span></span>").text("Title: " + title);
+          var $rating = $("<span></span>").text("Rating: " + rating);
+          var $removeBtn = $('<button class="remove-btn">Remove</button>');
+
+          $removeBtn.click(function () {
+            $movie.remove(); // Remove movie when remove button is clicked
+          });
+
+          $movie.append($title, $rating, $removeBtn);
+          $("#movieList").append($movie);
+
+          // Reset form inputs
+          $("#titleInput").val("");
+          $("#ratingInput").val("");
+        });
+      });
+    </script>
+  </body>
+</html>
